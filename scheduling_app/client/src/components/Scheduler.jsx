@@ -4,14 +4,10 @@ import React, { useEffect, useState } from 'react';
 import { getEvents, createEvent } from '../services/ApiService';
 
 const Scheduler = () => {
-  const [scheduleData, setScheduleData] = useState([]);
   const [newEventName, setNewEventName] = useState('');
+  const [events, setEvents] = useState([]);
 
   useEffect(() => {
-    fetchData()
-      .then(data => setScheduleData(data))
-      .catch(error => console.error(error));
-
     getEvents()
       .then(setEvents)
       .catch(console.error);
@@ -21,7 +17,7 @@ const Scheduler = () => {
     const eventData = { name: newEventName };
     createEvent(eventData)
       .then((addedEvent) => {
-        setEvents([...Event, addedEvent]);
+        setEvents([...events, addedEvent]);
         setNewEventName('');
       })
       .catch(console.error)
@@ -31,8 +27,8 @@ const Scheduler = () => {
     <div>
         <h1>Schedule An Appointment</h1>
         <ul>
-          {events.map((Event, index) => (
-            <li key={index}>event.name</li>
+          {events.map((event, index) => (
+            <li key={index}>{event.name}</li>
           ))}
         </ul>
         <div>
@@ -40,7 +36,7 @@ const Scheduler = () => {
             type='text'
             value={newEventName}
             onChange={(e) => setNewEventName(e.target.value)}
-            placeholder="New Event Name" 
+            placeholder="New Event Name"
           />
           <button onClick={handleAddEvent}>Add Event</button>
 
