@@ -2,8 +2,10 @@ const express = require('express');
 const path = require('path');
 const setupDatabase = require('./database');
 const app = express();
+const cors = require('cors');
 const port = 3000;
 
+app.use(cors());
 app.use(express.json());
 
 let db;
@@ -24,15 +26,16 @@ app.get('/api/events', async (req, res) => {
 
 app.post('/api/events', async (req, res) => {
   try {
-    const { name } = req.body;
-    const result = await db.run('INSERT INTO events (name) VALUES (?)', name);
-    res.status(201).json({ id: result.lastID, name });
+    const { name, date, time } = req.body;
+    const result = await db.run('INSERT INTO events (name, date, time) VALUES (?, ?, ?)', [name, date, time]);
+    res.status(201).json({ id: result.lastID, name, date, time });
   } catch (error) {
     res.status(500).json({ message: 'Error adding event' });
   }
 });
 
-app.use(express.static(path.join(__dirname, '../client/dist/assets'), {
+//Serve static files
+app.use(express.static(path.join(__dirname, '../client/dist'), {
   setHeaders: (res, path) => {
     if (path.endsWith('.js')) {
       res.set('Content-Type', 'text/javascript');

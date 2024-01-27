@@ -9,7 +9,9 @@ async function setupDatabase() {
 
     await db.exec(`CREATE TABLE IF NOT EXISTS events (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        name TEXT
+        name TEXT,
+        date TEXT,
+        time TEXT
     )`);
 
     return db;

@@ -7,7 +7,7 @@ export const getEvents = async () => {
   try {
     const response = await fetch(BASE_URL);
     if (!response.ok) {
-      throw new Error('Error fetching events');
+      throw new Error('Network response was not ok');
     }
     return await response.json();
   } catch (error) {
@@ -32,7 +32,6 @@ export const createEvent = async (eventData) => {
     return await response.json();
   } catch (error) {
     console.error('There has been a problem with your fetch operation: ' + error);
-    throw error;
   }
 }
 
