@@ -1,6 +1,6 @@
 // services/ApiService.js
 
-const BASE_URL = '/api/events'; 
+const BASE_URL = '/api/events';
 
 //Function to get a list of events
 export const getEvents = async () => {
