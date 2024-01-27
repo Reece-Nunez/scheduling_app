@@ -1,5 +1,5 @@
 {
-  "name": "server",
+  "name": "root",
   "version": "1.0.0",
   "description": "A fullstack application with a React frontend and Node.js backend",
   "scripts": {
